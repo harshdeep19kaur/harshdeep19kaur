@@ -1,0 +1,36 @@
+#include <iostream>
+using namespace std;
+
+void insertion(int arr[],int n)
+{
+  for(int i=0;i<n;i++)
+  {
+    int key=arr[i];
+    int j=i-1;
+    while((j>=0)&&key<arr[j])
+    {
+      arr[j+1]=arr[j];
+      j--;
+    }
+    arr[j+1]=key;
+  }
+}
+void traversal(int arr[],int n)
+{
+  for(int i=0;i<n;i++)
+  {
+    cout<<arr[i];
+    cout<<endl;
+  }
+}
+int main()
+{
+  int arr[]={4,6,9,3,2,7};
+  int n=sizeof(arr)/sizeof(arr[0]);
+  cout<<"Array before sorting : "<<endl;
+  traversal(arr,n);
+  insertion(arr,n);
+  cout<<"Array after insertion : "<<endl;
+  traversal(arr,n);
+  
+}
