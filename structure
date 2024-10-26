@@ -1,0 +1,19 @@
+#include<iostream>
+using namespace std;
+struct person
+{
+ string name;
+ int age;
+ float height;
+};
+int main()
+{
+  person p1;
+  p1.name="harshdeep";
+  p1.age= 19;
+  p1.height=233.4;
+  cout<<"name:" <<p1.name<<endl;
+  cout<<"age:" <<p1.age<<endl;
+  cout<<"height:"<<p1.height<<endl;
+  return 0;
+}
