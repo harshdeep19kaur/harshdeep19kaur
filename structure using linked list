@@ -1,0 +1,65 @@
+#include <iostream>
+using namespace std;
+struct node
+{
+ int data;
+ node*next;
+ node(int num):data(num),next(nullptr){};
+};
+    node*start=nullptr;
+  void traversal()
+  {
+      if(start==nullptr)
+    {
+      cout<<"list is empty";
+    }
+    else{
+    node *ptr = start;
+    while(ptr!=nullptr)
+    {
+      cout<<ptr->data<<"->";
+      ptr=ptr->next;
+    }
+    cout<<"null";
+    }
+  }
+  void insertbeg(int num)
+  {
+    node *new_node= new node(num);
+    if(start==nullptr)
+    {
+    cout<<"list is empty ";
+    start= new_node;
+    }
+    else  
+    {
+    new_node->next=start;
+    start=new_node;
+    }
+  }
+  void insertend(int num)
+  {
+    node *new_node= new node(num);
+    if(start==nullptr)
+    {
+    cout<<"list is empty ";
+    start= new_node;
+    }
+    else
+    {
+      node*ptr=start;
+      while(ptr->next!=nullptr)
+      {
+        ptr=ptr->next;
+      }
+      ptr->next=new_node;
+    }
+}
+  int main()
+  {
+    insertbeg(55);
+    insertend(32);
+    traversal();
+    return 0;
+  }
+  
