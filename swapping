@@ -1,0 +1,19 @@
+#include <iostream>
+#include<string>
+using namespace std;
+void revchar (string &str,int beg,int end)
+//to  break the code in middle
+{
+  if(beg>=end)
+ {
+  return;
+ }
+swap(str[beg],str[end]);
+revchar(str,beg+1,end-1);
+}
+int main() 
+{
+string str="HARSH DEEP KAUR";
+revchar(str,0,str.length()-1);
+cout<<str;
+}
