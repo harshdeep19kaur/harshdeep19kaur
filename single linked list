@@ -1,0 +1,118 @@
+#include <iostream> // Including input-output stream library for cout and cin
+
+using namespace std; // Using standard namespace to avoid writing std:: before standard functions
+
+// Define a structure for a node in the singly linked list
+struct Node {
+    int data;     // Variable to store data in the node
+    Node* next;   // Pointer to the next node in the list
+};
+
+// Class for Singly Linked List
+class SinglyLinkedList {
+private:
+    Node* head;  // Pointer to the first node (head) of the list
+
+public:
+    // Constructor to initialize the head pointer to nullptr when the list is created
+    SinglyLinkedList() {
+        head = nullptr;  // Initially, the list is empty, so head points to null
+    }
+
+    // Function to insert a new node with a given value at the end of the list
+    void insert(int value) {
+        Node* newNode = new Node(); // Create a new node dynamically
+        newNode->data = value;      // Assign the given value to the new node's data
+        newNode->next = nullptr;    // Set the next pointer of the new node to nullptr since it will be the last node
+
+        // If the list is empty (head is nullptr), set head to the new node
+        if (head == nullptr) {
+            head = newNode;  // Make the new node the first node (head)
+        } else {
+            // Traverse the list to find the last node
+            Node* temp = head;        // Start from the head
+            while (temp->next != nullptr) { // Move through nodes until we find the last node (where next is nullptr)
+                temp = temp->next;    // Move to the next node
+            }
+            temp->next = newNode;     // Link the last node to the new node
+        }
+    }
+
+    // Function to delete a node by its value
+    void deleteNode(int value) {
+        // If the list is empty, do nothing
+        if (head == nullptr) return;
+
+        // If the head node needs to be deleted (value is at the head)
+        if (head->data == value) {
+            Node* temp = head;      // Store the head node in a temporary variable
+            head = head->next;      // Move head to the next node
+            delete temp;            // Delete the old head node
+            return;                 // Exit the function after deletion
+        }
+
+        // Traverse the list to find the node with the given value
+        Node* current = head;       // Start from the head
+        Node* previous = nullptr;   // Pointer to keep track of the previous node
+
+        // Move through the list to find the node with the given value
+        while (current != nullptr && current->data != value) {
+            previous = current;     // Move previous to current node
+            current = current->next; // Move current to the next node
+        }
+
+        // If the node with the given value was not found, do nothing
+        if (current == nullptr) return;
+
+        // Link the previous node to the next node, skipping over the current node (which is to be deleted)
+        previous->next = current->next;
+        delete current;   // Delete the node that contains the value
+    }
+
+    // Function to display all the nodes in the list
+    void display() {
+        Node* temp = head;   // Start from the head node
+        // Traverse the list and print each node's data
+        while (temp != nullptr) {
+            cout << temp->data << " -> "; // Print the data in the current node followed by an arrow
+            temp = temp->next;            // Move to the next node
+        }
+        cout << "nullptr" << endl;  // After the last node, print "nullptr" to indicate the end of the list
+    }
+
+    // Destructor to free memory and avoid memory leaks when the list is destroyed
+    ~SinglyLinkedList() {
+        Node* current = head;   // Start from the head node
+        Node* nextNode;         // Pointer to store the next node while deleting
+
+        // Traverse the list and delete each node
+        while (current != nullptr) {
+            nextNode = current->next;  // Store the next node
+            delete current;            // Delete the current node
+            current = nextNode;        // Move to the next node
+        }
+    }
+};
+
+// Main function to demonstrate the linked list operations
+int main() {
+    SinglyLinkedList list;  // Create a singly linked list object
+
+    // Inserting nodes into the list
+    list.insert(10);  // Insert node with value 10
+    list.insert(20);  // Insert node with value 20
+    list.insert(30);  // Insert node with value 30
+
+    // Display the list after insertion
+    cout << "Linked List after insertion: ";
+    list.display();  // Expected output: 10 -> 20 -> 30 -> nullptr
+
+    // Deleting a node with value 20
+    list.deleteNode(20);  // This will remove the node with value 20
+
+    // Display the list after deletion
+    cout << "Linked List after deleting 20: ";
+    list.display();  // Expected output: 10 -> 30 -> nullptr
+
+    return 0;  // End of the program
+}
